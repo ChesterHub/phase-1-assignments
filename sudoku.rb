@@ -29,19 +29,25 @@ make_board(input_str)
   #return 9x9 array that is the board
 end
 
-pick_spot
+def pick_spot
   #choose random x,y
   #return index 0..8
+  x = (0..8)
+  y = (0..8)
+  return x.sample
+  return y.sample
 end
 
-spot_empty?(x, y, board)
+def spot_empty?(x, y, board)
   #see what's occupying spot
   #return true if == 0
+  return true if board.empty?
 end
 
-pick_num
+def pick_num
   #choose random number 1..9
   #return number
+  (1..9).sample
 end
 
 #This method will call the three methods that follow it

@@ -80,6 +80,9 @@ end
 def board_filled?(board)
   #scan for 0's
   #return true if scan does not include 0's
+  board_string = board.join
+  new_board = board_string.scan(/./).map(&:to_i)
+  !new_board.include?(0)
 end
 
 solve(board)

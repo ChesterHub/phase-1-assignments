@@ -1,3 +1,5 @@
+#THESE METHODS WERE PRE-POPULATED
+
 # Takes a board as a string in the format
 # you see in the puzzle file. Returns
 # something representing a board after
@@ -19,4 +21,58 @@ end
 # The input board will be in whatever
 # form `solve` returns.
 def pretty_board(board)
+end
+
+#THESE ARE THE METHODS WE DEVELOPED
+make_board(input_str)
+  #parse string into data structure to create board
+  #return 9x9 array that is the board
+end
+
+pick_spot
+  #choose random x,y
+  #return index 0..8
+end
+
+spot_empty?(x, y, board)
+  #see what's occupying spot
+  #return true if == 0
+end
+
+pick_num
+  #choose random number 1..9
+  #return number
+end
+
+#This method will call the three methods that follow it
+spot_ok?(num, board, x, y)
+  #call check methods
+  #return boolean
+end
+
+row_ok?(num, row -board[y])
+  #return boolean
+end
+
+col_ok?(num, col - board[x])
+  #return boolean
+end
+
+box_ok?(x, y)
+  #return boolean
+end
+
+#############################################################
+
+assign_num(num, board, x, y)
+  #set board[y][x] = num
+  #return board
+end
+
+board_filled?(board)
+  #scan for 0's
+  #return true if scan does not include 0's
+end
+
+solve(board)
 end

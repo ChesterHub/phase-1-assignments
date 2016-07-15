@@ -45,17 +45,27 @@ pick_num
 end
 
 #This method will call the three methods that follow it
-spot_ok?(num, board, x, y)
+def spot_ok?(num, board, x, y)
   #call check methods
+  if row_ok?(num, board[y]) && col_ok?(num, board[x]) && box_ok?(x, y)
+    true
+  else
+    false
+  end
   #return boolean
 end
 
-row_ok?(num, row -board[y])
-  #return boolean
+def row_ok?(num, row)
+  # board[y] at 0-8
+  # if number is in row return true else false
+  row.include?(num)
 end
 
-col_ok?(num, col - board[x])
+def col_ok?(num, col)
+  # - board[x]
   #return boolean
+  col.transpose
+  col.include?(num)
 end
 
 box_ok?(x, y)

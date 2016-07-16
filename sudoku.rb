@@ -52,17 +52,26 @@ def pick_num
 end
 
 #This method will call the three methods that follow it
-spot_ok?(num, board, x, y)
-  #call check methods
-  #return boolean
+def spot_ok?(num, board, x, y)
+  if row_ok?(num, board[y]) && col_ok?(num, board, x) && box_ok?(x, y)
+    return true
+  else
+    return false
+  end
 end
 
-row_ok?(num, row -board[y])
-  #return boolean
+def row_ok?(num, row)
+  row.include?(num)
 end
 
-col_ok?(num, col - board[x])
-  #return boolean
+def col_ok?(num, board, x)
+  board.each do |row|
+    if row[x] == num
+      return true
+    else
+      return false
+    end
+  end
 end
 
 def get_box(x,y,box)

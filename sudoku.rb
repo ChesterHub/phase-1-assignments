@@ -42,7 +42,7 @@ def spot_empty?(x, y, board)
   #see what's occupying spot
   #return true if == 0
   spot = board[y][x]
-  spot.empty?
+  return true if spot == 0
 end
 
 def pick_num
@@ -74,7 +74,9 @@ end
 def assign_num(num, board, x, y)
   #set board[y][x] = num
   #return board
-
+  if num == board[y][x]
+    return board
+  end
 end
 
 def board_filled?(board)

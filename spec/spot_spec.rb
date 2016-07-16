@@ -1,7 +1,19 @@
 require_relative '../sudoku'
 
 describe 'all spot tests' do
-  let(:board){Array.new(9) {Array.new (9), 0}}
+  let(:board) {
+
+   [[0, 8, 0, 0, 2, 0, 0, 0, 0],
+    [0, 4, 0, 5, 0, 0, 3, 2, 0],
+    [0, 2, 0, 3, 0, 9, 0, 4, 6],
+    [6, 0, 0, 0, 9, 0, 0, 0, 4],
+    [0, 0, 0, 6, 4, 0, 5, 0, 1],
+    [1, 3, 4, 0, 5, 0, 7, 0, 0],
+    [3, 6, 0, 0, 0, 4, 0, 0, 2],
+    [4, 0, 7, 2, 3, 0, 6, 0, 0],
+    [0, 0, 0, 7, 0, 0, 4, 5, 0]]
+
+  }
 
   describe 'row_ok?' do
     it 'returns true if row is available' do

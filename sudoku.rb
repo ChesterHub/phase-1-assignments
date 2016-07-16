@@ -24,9 +24,19 @@ def pretty_board(board)
 end
 
 #THESE ARE THE METHODS WE DEVELOPED
-make_board(input_str)
-  #parse string into data structure to create board
-  #return 9x9 array that is the board
+def make_board(input_str)
+  board_side_length = 9
+
+  board = Array.new(board_side_length) { [ ] }
+
+  board_side_length.times.with_index do |x|
+    board_side_length.times.with_index do |y|
+      next_number = input_str[(x*board_side_length) + y]
+
+      board[x] << next_number.to_i
+    end
+  end
+  return board
 end
 
 def pick_spot

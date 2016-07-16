@@ -46,26 +46,25 @@ end
 
 #This method will call the three methods that follow it
 def spot_ok?(num, board, x, y)
-  #call check methods
-  if row_ok?(num, board[y]) && col_ok?(num, board[x]) && box_ok?(x, y)
-    true
+  if row_ok?(num, board[y]) && col_ok?(num, board, x) && box_ok?(x, y)
+    return true
   else
-    false
+    return false
   end
-  #return boolean
 end
 
 def row_ok?(num, row)
-  # board[y] at 0-8
-  # if number is in row return true else false
   row.include?(num)
 end
 
-def col_ok?(num, col)
-  # - board[x]
-  #return boolean
-  col.transpose
-  col.include?(num)
+def col_ok?(num, board, x)
+  board.each do |row|
+    if row[x] == num
+      return true
+    else
+      return false
+    end
+  end
 end
 
 box_ok?(x, y)

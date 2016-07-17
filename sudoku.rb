@@ -32,7 +32,6 @@ def make_board(input_str)
 end
 
 def pick_spot
-  puts "I'M IN PICK SPOT()"
   #choose random x,y
   #return index 0..8
   x = [0,1,2,3,4,5,6,7,8]
@@ -97,17 +96,17 @@ def box_ok?(x, y, board, num)
   # puts "X: #{x}   Y: #{y}"
 
   box =       [[[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]],
-              [[0,3],[0,4],[0,5],[1,3],[1,4],[1,5],[2,3],[2,4],[2,5]],
-              [[0,6],[0,7],[0,8],[1,6],[1,7],[1,8],[2,6],[2,7],[2,8]],
-              [[3,0],[3,1],[3,2],[4,0],[4,1],[4,2],[5,0],[5,1],[5,2]],
-              [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5],[5,3],[5,4],[5,5]],
-              [[3,6],[3,7],[3,8],[4,6],[4,7],[4,8],[5,6],[5,7],[5,8]],
-              [[6,0],[6,1],[6,2],[7,0],[7,1],[7,2],[8,0],[8,1],[8,2]],
-              [[6,3],[6,4],[6,5],[7,3],[7,4],[7,5],[8,3],[8,4],[8,5]],
-              [[6,6],[6,7],[6,8],[7,6],[7,7],[7,8],[8,6],[8,7],[8,8]],
-              ]
+  [[0,3],[0,4],[0,5],[1,3],[1,4],[1,5],[2,3],[2,4],[2,5]],
+  [[0,6],[0,7],[0,8],[1,6],[1,7],[1,8],[2,6],[2,7],[2,8]],
+  [[3,0],[3,1],[3,2],[4,0],[4,1],[4,2],[5,0],[5,1],[5,2]],
+  [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5],[5,3],[5,4],[5,5]],
+  [[3,6],[3,7],[3,8],[4,6],[4,7],[4,8],[5,6],[5,7],[5,8]],
+  [[6,0],[6,1],[6,2],[7,0],[7,1],[7,2],[8,0],[8,1],[8,2]],
+  [[6,3],[6,4],[6,5],[7,3],[7,4],[7,5],[8,3],[8,4],[8,5]],
+  [[6,6],[6,7],[6,8],[7,6],[7,7],[7,8],[8,6],[8,7],[8,8]],
+]
 
-  our_box_within_board = get_box(x,y,box)
+our_box_within_board = get_box(x,y,box)
 
   # puts "The current box is: #{our_box_within_board}"
 
@@ -158,7 +157,6 @@ def all_spots_visited?(visit_board)
       return false if i == 0
     end
   end
-
   return true
 
 end
@@ -171,60 +169,89 @@ end
 # How you represent your board is up to you!
 def solve(board)
   puts "RECURSION"
-  p board
 
-  current_spot = [ ]
+
+  current_spot = []
   spot_is_found = false
   #loop_times = 0
   board_visited = Array.new(9) { Array.new (9), 0}
   stop_going = false
   num_is_found = false
 
-  until stop_going || num_is_found
-  #puts "BIG LOOP START"
 
-    spot_is_found = false
-    loop_times = 0
-    until spot_is_found
-        loop_times += 1
+ locations_left =       [[[0,0],[0,1],[0,2],[1,0],[1,1],[1,2],[2,0],[2,1],[2,2]],
+  [[0,3],[0,4],[0,5],[1,3],[1,4],[1,5],[2,3],[2,4],[2,5]],
+  [[0,6],[0,7],[0,8],[1,6],[1,7],[1,8],[2,6],[2,7],[2,8]],
+  [[3,0],[3,1],[3,2],[4,0],[4,1],[4,2],[5,0],[5,1],[5,2]],
+  [[3,3],[3,4],[3,5],[4,3],[4,4],[4,5],[5,3],[5,4],[5,5]],
+  [[3,6],[3,7],[3,8],[4,6],[4,7],[4,8],[5,6],[5,7],[5,8]],
+  [[6,0],[6,1],[6,2],[7,0],[7,1],[7,2],[8,0],[8,1],[8,2]],
+  [[6,3],[6,4],[6,5],[7,3],[7,4],[7,5],[8,3],[8,4],[8,5]],
+  [[6,6],[6,7],[6,8],[7,6],[7,7],[7,8],[8,6],[8,7],[8,8]],
+]
+
+locations_visited = Array.new
+
+big_loop = 0
+  until stop_going == true || num_is_found == true
+    big_loop += 1
+
+  spot_is_found = false
+  until spot_is_found == true
         #puts "I'm findng a spot #{loop_times}"
         x = [0,1,2,3,4,5,6,7,8].sample
         y = [0,1,2,3,4,5,6,7,8].sample
         spot_is_found = spot_empty?(x,y,board)
+        if spot_is_found == true
+          break
+        end
+      end
+
+      num_is_found = false
+      num_possibilities = [1,2,3,4,5,6,7,8,9]
+      no_more_possbilities = false
+
+      until num_is_found == true || no_more_possbilities == true
+
+        current_num = pick_num()
+        num_is_found = spot_ok?(current_num, board, x, y)
+
+        if num_possibilities == []
+          no_more_possbilities = true
+          break #<---IMPORTANT!!!!!!!!!!!!!!!
+        elsif num_possibilities.include?(current_num)
+          num_possibilities =  num_possibilities.delete_if {|number| number == current_num }
+        end
+
+      end
+
+    #board_visited[x][y] = 1
+    # p board_visited
+    # #stop_going = all_spots_visited?(board_visited)
+    values = [x,y]
+    if locations_visited.length == 81
+      stop_going == true
+      break
+    elsif locations_left[x][y] == values && locations_visited.include?([x,y]) == false
+      locations_visited << values
     end
 
-    num_is_found = false
-    num_possibilities = [1,2,3,4,5,6,7,8,9]
 
-    loop_times = 0
-    until num_is_found || num_possibilities == []
-    #puts "Go?"
-    #gets.chomp
 
-      loop_times += 1
-      #puts "I'm findng a number #{loop_times}"
-      current_num = pick_num()
-      num_is_found = spot_ok?(current_num, board, x, y)
-      num_possibilities.delete(current_num)
+    if stop_going == true
+      break
+    else
     end
-
-    #puts "NUM IS: #{current_num}"
-    board_visited[x][y] = 1
-    board_visited
-    stop_going = all_spots_visited?(board_visited)
-
-
-
   end
 
 
   #p current_num, x, y
-  p new_board = assign_num(current_num, board, x, y)
-
+  new_board = assign_num(current_num, board, x, y)
+  puts "THe Big loop ran #{big_loop} times."
   puts "ABOUT TO EVALUATE"
   return true if board_filled?(new_board)
   puts "DIDNT SOLVE IT"
-  return false if !num_is_found
+  return false if num_is_found == false
   puts "SOLVING AGAIN"
   return solve(new_board)
 end
